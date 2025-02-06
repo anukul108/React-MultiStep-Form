@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Form } from './component/singleLevelForm/form'
+import { Form } from './component/multiLevelForm/form'
 
 function App() {
   const [count, setCount] = useState(0)
