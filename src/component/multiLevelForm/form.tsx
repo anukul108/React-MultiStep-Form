@@ -7,9 +7,11 @@ export const Form = () => {
   const formDetails = useRef({});
   const [activeStep, setActiveStep] = useState(0);
 
-//   const handleSubmit = () => {
+  const handleSubmit = () => {
+    alert('form Submitted')
+    console.log('formDetails', formDetails)
+  }
 
-//   }
 
   return (
     <>
@@ -30,11 +32,13 @@ export const Form = () => {
         )}
         {activeStep === 2 && (
           <ReviewDetails
-            formDetails = {formDetails}
+            handleSubmit = {handleSubmit}
+            formDetails = {formDetails.current}
             activeStep={activeStep}
             nextStep={(step: number) => setActiveStep(step)}
           />
         )}
+        
       </div>
     </>
   );

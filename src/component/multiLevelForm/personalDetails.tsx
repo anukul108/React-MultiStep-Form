@@ -1,8 +1,5 @@
 import {
-  Button,
   FormControl,
-  Input,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
@@ -16,7 +13,6 @@ import { useEffect } from "react";
 
 interface FormValues {
   name: string;
-  age: number;
   mobile: string;
   dob: string | null;
   email: string;
@@ -29,7 +25,7 @@ export const PersonalDetails = ({
 }: {
   formDetails: any,
   activeStep: number;
-  nextStep: (step: number) => void;
+  nextStep?: (step: number) => void;
 }) => {
   const {
     control,
@@ -40,33 +36,33 @@ export const PersonalDetails = ({
   } = useForm<FormValues>({
     defaultValues: {
       name: "",
-      age: undefined,
       mobile: "",
       dob: null,
       email: "",
     },
   });
 
+  //for single page
   useEffect(() => {
     if(formDetails.current['0']){
       const personalDetails = formDetails.current['0'];  
       setValue("name", personalDetails['name'])
-      setValue("age", personalDetails['age'])
       setValue("mobile", personalDetails['mobile'])
       setValue("dob", personalDetails['dob'])
       setValue("email", personalDetails['email'])
     }
   },[])
 
+
   const onSubmit = (data: FormValues) => {
     formDetails.current = {...formDetails.current, ['0']: data}
-    nextStep(activeStep + 1)
+    nextStep?.(activeStep + 1)
   };
 
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400, margin: "auto" }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400, margin: "20px auto" }}>
           <Typography variant="h6" sx={{ mb: "10px" }}>
             Personal Details
           </Typography>
@@ -77,19 +73,6 @@ export const PersonalDetails = ({
               {...register("name", { required: "Name is required" })}
               error={!!errors.name}
               helperText={errors.name?.message}
-            />
-
-            <TextField
-              label="Age"
-              type="number"
-              sx={{ mt: "10px" }}
-              fullWidth
-              {...register("age", {
-                required: "Age is required",
-                min: { value: 1, message: "Age must be at least 1" },
-              })}
-              error={!!errors.age}
-              helperText={errors.age?.message}
             />
 
             <TextField

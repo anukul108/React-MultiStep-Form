@@ -23,7 +23,7 @@ const AddressForm = ({
 }: {
   formDetails: any;
   activeStep: number;
-  nextStep: (step: number) => void;
+  nextStep?: (step: number) => void;
 }) => {
   const {
     control,
@@ -60,7 +60,7 @@ const AddressForm = ({
   const onSubmit = (data: FormValues) => {
     formDetails.current = { ...formDetails.current, ["1"]: data };
     console.log(formDetails.current);
-    console.log("Form Data:", data);
+    nextStep?.(activeStep + 1)
   };
 
   return (
